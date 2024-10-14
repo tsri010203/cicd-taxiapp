@@ -23,5 +23,12 @@ environment {
                  echo "----------- unit test Complted ----------"
             }
         }
+        stage('SonarQube Analysis') {
+            steps {
+                withSonarQubeEnv('SonarCloud') {  // 'SonarCloud' is the name you gave in Jenkins configuration
+                    sh 'mvn clean verify sonar:sonar -Dsonar.login=$SONAR_TOKEN'
+                }
+            }
+        }
 }
 }
