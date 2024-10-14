@@ -4,12 +4,9 @@ pipeline {
             label 'maven'
         }
     }
-    tools {
-        jdk 'JDK 17'
-    }
 environment {
     PATH = "/opt/apache-maven-3.9.6/bin:$PATH"
-    
+    SONAR_TOKEN = credentials('SONAR_TOKEN')
 }
    stages {
         stage("build"){
@@ -28,10 +25,12 @@ environment {
         }
         stage('SonarQube Analysis') {
             steps {
-                withSonarQubeEnv('SonarCloud') {  // 'SonarCloud' is the name you gave in Jenkins configuration
-                    sh 'mvn clean verify sonar:sonar -Dsonar.login=$SONAR_TOKEN'
+                script {
+                    // Run SonarQube analysis
+                    sh 'mvn sonar:sonar -Dsonar.projectKey=Chandanasai1712_cicd-taxiapp -Dsonar.organization=taxiapp -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN'
                 }
             }
         }
+    }
 }
 }
