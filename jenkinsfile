@@ -1,5 +1,5 @@
-def registry = 'https://taxi01.jfrog.io/'
-def imageName = 'taxi01.jfrog.io/taxi-docker-local/taxiapp'
+def registry = 'https://taxio.jfrog.io/'
+def imageName = 'taxio.jfrog.io/docker-taxi-docker/taxiapp'
 def version   = '1.0.1'
 pipeline {
     agent {
